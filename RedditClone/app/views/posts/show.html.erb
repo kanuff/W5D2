@@ -3,3 +3,25 @@ Title: <%= @post.title %>
 Content: <%= @post.content %>
 <br>
 By: <%= @post.author.username %>
+<br>
+<br>
+
+
+<form action="<%=post_comments_url(@post)%>" method='POST'>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <label for="comment">Comment</label>
+  <input type="text" name='comment[content]' id='comment'>
+  <input type="submit" value='Comment!'>
+</form>
+
+<br>
+COMMENTS 
+<ul>
+  <% @post.comments.each do |comment|%>
+    <li>
+     <%= comment.content if comment.parent_comment_id.nil? %>
+    </li>
+  <% end %>
+
+
+</ul>

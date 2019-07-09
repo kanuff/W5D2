@@ -7,7 +7,6 @@
 #  url        :string
 #  content    :text
 #  user_id    :integer          not null
-#  sub_id     :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -31,5 +30,9 @@ class Post < ApplicationRecord
     source: :sub,
     class_name: :Sub
 
+  has_many :comments,
+  foreign_key: :post_id,
+  class_name: :Comment
+  
   
 end
