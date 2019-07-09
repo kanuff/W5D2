@@ -13,11 +13,23 @@
 #
 
 class Post < ApplicationRecord
-  validates :title, :sub_id, :user_id, presence: true
+  validates :title, :user_id, presence: true
 
   belongs_to :author,
   foreign_key: :user_id,
   class_name: :User
 
-  belongs_to :sub
+ 
+
+  has_many :post_subs,
+    foreign_key: :post_id, 
+    class_name: :PostSub,
+    inverse_of: :post
+
+  has_many :subs, 
+    through: :post_subs, 
+    source: :sub,
+    class_name: :Sub
+
+  
 end

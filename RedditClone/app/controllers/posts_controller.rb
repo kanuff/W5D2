@@ -10,7 +10,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id =  current_user.id 
+    debugger 
+    @post.sub_ids = [1]
     if @post.save
+      #add to post_subs here
       redirect_to post_url(@post)
     else
       flash.now[:errors] = @post.errors.full_messages
@@ -46,7 +49,8 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:title, :url, :content, :sub_id)
+    debugger
+    params.require(:post).permit(:title, :url, :content, sub_ids: [])
   end
 
   def ensure_author 
